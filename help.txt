@@ -1,11 +1,10 @@
-A simple calculator to simulate effects of interest and inflation to capital.
+A simple calculator to simulate effects of interest and inflation to total invested capital.
 
 
-About mathematics:
-Interest is based on total inflation, that is relative to time 0.
-Inflation is based on total inflation, that is relative to time 0.
-Taxes are reduces by basis of Finnish tax law. 32 %
+About underlying math:
+-Investments are accumulated every month
+-Interest and inflation are accumulated every year
+-Taxes are reduces with simple rule (-32 % of wins)
 
 TODO:
--Show total investment (money spent)
--Separate buy and wait periods
+-Fix interest calculation, currently interest is calculated for the whole investment sum
