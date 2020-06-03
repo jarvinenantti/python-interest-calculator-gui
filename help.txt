@@ -7,4 +7,4 @@ About underlying math:
 -Taxes are reduces with simple rule (-32 % of wins)
 
 TODO:
--Fix interest calculation, currently interest is calculated for the whole investment sum
+-Create image of money vs. time -plot and add that to grid

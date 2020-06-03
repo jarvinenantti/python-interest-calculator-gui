@@ -1,5 +1,9 @@
 from tkinter import *
 from Interest import Interest
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
 
 
 class InterestGUI:
@@ -7,6 +11,9 @@ class InterestGUI:
 
         frame = Frame(master)  # main frame
         frame.grid()
+        
+        self.months = []
+        self.money = []
 
         self.exit = Button(frame, text="QUIT", fg="red", command=frame.quit)
         self.exit.grid(row=13, column=2)
@@ -119,26 +126,29 @@ class InterestGUI:
         return text
 
     """This method creates an instance of Interest class,
-    and sets the value of result-message according to final amount of money"""
+    and sets the values result according to calculations"""
 
     def calculate(self):
         try:
-            self.money = Interest(int(self.sc.get()), int(self.ci.get()),
+            self.result = Interest(int(self.sc.get()), int(self.ci.get()),
                                   int(self.int.get()), int(self.inf.get()),
                                   int(self.ty.get()), int(self.iy.get()),
                                   int(self.variable.get()))  # Interest object
-            self.resultNet.config(text=int(self.money.scn),
+            # Months and money could be used to create image (plot)
+            self.months = self.result.months
+            self.money = self.result.scg
+            self.resultNet.config(text=int(self.result.scn),
                                            fg="blue", font=10)  # set net result
-            self.resultGross.config(text=int(self.money.scg),
+            self.resultGross.config(text=int(self.result.scgs),
                                              fg="blue", font=10)  # set gross result
             self.interestTotal.config(
-                text=round(float(self.money.intTot), 2),
+                text=round(float(self.result.intTot), 2),
                 fg="blue", font=10)  # set total int           
             self.inflationTotal.config(
-                text=round(float(self.money.infTot), 2),
+                text=round(float(self.result.infTot), 2),
                 fg="blue", font=10)  # set total inf
             self.investmentSum.config(
-                text=round(float(self.money.scs), 2),
+                text=round(float(self.result.scs), 2),
                 fg="blue", font=10)  # set total sum
         except ValueError:
             self.resultNet.config(
