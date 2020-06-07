@@ -9,6 +9,7 @@ class Interest:
             self.scs = startingCapital  # keep track of invested money
             self.scg = []  # gross = only interest
             self.scg.append(startingCapital)
+            self.snap = [] # snapshot of total money
             self.months = []
             self.ci = capitalIncrease  # monthly
             self.intr = (interest/100.0)+1
@@ -47,6 +48,8 @@ class Interest:
                         self.scg[i] = self.scg[i]*self.intr
                 else:  # middle of year
                     month = month+1
+                # Snapshot of current money situtation
+                self.snap.append(sum(self.scg))
 
             # Calculate net total(final) investment
             self.scgs = sum(self.scg)

@@ -4,6 +4,7 @@ import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+import numpy as np
 
 
 class InterestGUI:
@@ -72,9 +73,9 @@ class InterestGUI:
                                        variable=self.variable)
         self.checkButton.grid(row=7, column=1)
 
-        self.calc = Button(frame, text="CALC", fg="green",
+        self.calc = Button(frame, text="CALC", fg="blue",
                            command=self.calculate)  # call calculate function
-        self.calc.grid(row=7, column=2)
+        self.calc.grid(row=0, column=1)
 
         self.rgLabel = Label(frame, text="Gross result:", fg="blue")
         self.rgLabel.grid(row=8, column=1)
@@ -104,6 +105,10 @@ class InterestGUI:
         self.invSumLabel.grid(row=12, column=1)
         self.investmentSum = Message(frame, width=100, text="")  # show investment sum
         self.investmentSum.grid(row=13, column=1)
+        
+        self.plotter = Button(frame, text="PLOT", fg="blue",
+                           command=self.plotter)  # call plotter function
+        self.plotter.grid(row=0, column=2)
 
     """Creates a message window of Toplevel-type"""
 
@@ -117,6 +122,33 @@ class InterestGUI:
 
         self.close = Button(self.top1, text="Close", command=self.top1.destroy)
         self.close.grid()
+
+    """Creates a plotter window of Toplevel-type"""
+
+    def plotter(self):
+        self.top2 = Toplevel()
+        self.top2.title("Plotter")
+        self.top2.grid()
+
+        try:
+            x = self.result.months
+            y = self.result.snap
+        except Exception as e:
+            print(e)
+            print('Please, calculate first')
+        
+        fig = Figure(figsize=(5, 5), dpi=100)
+        a = fig.add_subplot(111)
+        a.plot(x, y)
+        a.set_xlabel('Time (months)')
+        a.set_title('(€) Monthly investment tracker, no inflation or taxes')
+    
+        canvas = FigureCanvasTkAgg(fig, self.top2)
+        canvas.get_tk_widget().grid(row=1,column=1,columnspan=4,rowspan=20)
+        canvas.draw()
+
+        self.close = Button(self.top2, text="Close", command=self.top2.destroy)
+        self.close.grid(row=0,column=0)
 
     """Return a String that contains text of 'file_name'"""
 

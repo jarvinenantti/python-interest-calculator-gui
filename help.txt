@@ -1,10 +1,6 @@
 A simple calculator to simulate effects of interest and inflation to total invested capital.
 
-
 About underlying math:
 -Investments are accumulated every month
 -Interest and inflation are accumulated every year
--Taxes are reduces with simple rule (-32 % of wins)
-
-TODO:
--Create image of money vs. time -plot and add that to grid
+-Taxes are reduces with a simple rule (-32 % of wins)
